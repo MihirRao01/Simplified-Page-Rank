@@ -7,19 +7,19 @@ class AdjacencyList {
   //Think about what member variables you need to initialize 
   unordered_map<string, vector<string>> in_degree;
   unordered_map<string, int> out_degree;
-  unordered_map<string, float> rank;
+  map<string, float> rank;
 
   void PrintPageRank();
 
  public: 
   //Think about what helper functions you will need in the algorithm 
   void PageRank(int n);
-  void insert_edge(string &from,string &to);
+  void insert_edge(string from,string to);
 
 }; 
 
 
-void AdjacencyList::insert_edge(string &from, string &to){
+void AdjacencyList::insert_edge(string from, string to){
 
   // incremened the number of out linkes the from url points to 
     out_degree[from]++;
@@ -47,7 +47,7 @@ void AdjacencyList::PrintPageRank(){
 
   for(auto it = rank.begin(); it != rank.end();it++){
 
-    cout<< it->first << " "<<it->second << endl;
+    cout<< it->first << " "<< setprecision(2)<<it->second << endl;
   }
 
 
@@ -65,7 +65,7 @@ void AdjacencyList::PageRank(int p){
   }
 
   // temporarily store the page rank of the current iteration
-  unordered_map<string,float> new_rank;
+  map<string,float> new_rank;
 
   for(int i = 1; i<p;i++){
 
@@ -79,7 +79,9 @@ void AdjacencyList::PageRank(int p){
       
       float sum = 0.0f;
 
-      for(int i = 0; i<fromLinks.size();i++){
+      if(fromLinks.size()!=0){
+
+        for(int i = 0; i<fromLinks.size();i++){
 
         // Pr(A) = sum of the previous page rank / outdegree of each page pointing to the current page 
 
@@ -88,12 +90,15 @@ void AdjacencyList::PageRank(int p){
 
         sum += prevRank / (float)outdegree;
 
+        }
+
+         // store the current page rank
+
+        new_rank[it->first] = sum;
       }
-
-      // store the current page rank
-
-      new_rank[it->first] = sum;
-      
+      else{
+        new_rank[it->first] =0;
+      }
 
     }
 

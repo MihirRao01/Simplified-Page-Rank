@@ -4,6 +4,8 @@
 #include <map>
 #include <unordered_map>
 #include <iomanip>
+#include <string>
+#include <cmath>
 
 using namespace std;
 #include "Graph.h"
@@ -26,6 +28,18 @@ int main()
     // //Created_Graph.PageRank(power_iterations); 
 
     AdjacencyList graph;
+    graph.insert_edge("google.com","gmail.com");
+    graph.insert_edge("google.com","maps.com");
+    graph.insert_edge("facebook.com","ufl.edu");
+    graph.insert_edge("ufl.edu","google.com");
+    graph.insert_edge("ufl.edu","gmail.com");
+    graph.insert_edge("maps.com","facebook.com");
+    graph.insert_edge("gmail.com","maps.com");
+
+    graph.PageRank(2);
+
+
+
 
 
 
